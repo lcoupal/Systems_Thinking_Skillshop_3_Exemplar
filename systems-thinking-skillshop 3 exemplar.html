@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Systems Thinking – Go Green Activity</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-deep: #1a5c38;
+    --green-mid: #2d8a56;
+    --green-light: #4aba7a;
+    --green-pale: #e8f5ee;
+    --green-wash: #f4faf7;
+    --leaf: #7ec47e;
+    --earth: #8b6f47;
+    --earth-light: #d4c4a8;
+    --sky: #87ceeb;
+    --white: #ffffff;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --radius: 12px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 30px rgba(0,0,0,0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--green-wash);
+    color: var(--gray-800);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 60%, var(--green-light) 100%);
+    padding: 32px 24px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header::after {
+    content: '♻';
+    position: absolute;
+    top: 16px; right: 24px;
+    font-size: 56px;
+    opacity: 0.15;
+    filter: grayscale(1) brightness(3);
+  }
+  .header h1 {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: -0.5px;
+    position: relative;
+  }
+  .header h1 span {
+    font-family: 'Caveat', cursive;
+    font-size: 30px;
+    color: var(--leaf);
+    display: inline-block;
+    margin-left: 6px;
+  }
+  .header p {
+    color: rgba(255,255,255,0.8);
+    font-size: 14px;
+    margin-top: 4px;
+    font-weight: 300;
+    position: relative;
+  }
+
+  /* ── TABS ── */
+  .tab-bar {
+    display: flex;
+    background: var(--white);
+    border-bottom: 2px solid var(--gray-200);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 14px 8px;
+    border: none;
+    background: none;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-400);
+    cursor: pointer;
+    position: relative;
+    transition: color 0.25s;
+    text-align: center;
+  }
+  .tab-btn:hover { color: var(--gray-700); }
+  .tab-btn.active { color: var(--green-deep); }
+  .tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 16px; right: 16px;
+    height: 3px;
+    background: var(--green-mid);
+    border-radius: 3px 3px 0 0;
+  }
+  .tab-btn .tab-icon {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 2px;
+  }
+
+  /* ── TAB CONTENT ── */
+  .tab-content { display: none; padding: 20px 16px 40px; max-width: 800px; margin: 0 auto; }
+  .tab-content.active { display: block; animation: fadeUp 0.35s ease; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--gray-200);
+    position: relative;
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .step-badge {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, var(--green-mid), var(--green-light));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .card-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--green-deep);
+  }
+  .card-header h3 small {
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 1px;
+  }
+
+  /* ── FORM ELEMENTS ── */
+  label.field-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 6px;
+    margin-top: 14px;
+  }
+  label.field-label:first-of-type { margin-top: 0; }
+
+  .hint {
+    font-size: 12px;
+    color: var(--gray-400);
+    font-style: italic;
+    margin-bottom: 6px;
+  }
+
+  textarea, input[type="text"] {
+    width: 100%;
+    border: 1.5px solid var(--gray-200);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    color: var(--gray-800);
+    background: var(--gray-50);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    resize: vertical;
+  }
+  textarea:focus, input[type="text"]:focus {
+    outline: none;
+    border-color: var(--green-mid);
+    box-shadow: 0 0 0 3px rgba(45,138,86,0.12);
+    background: var(--white);
+  }
+  textarea { min-height: 80px; }
+  textarea.tall { min-height: 120px; }
+
+  /* ── SVG MAP ── */
+  .svg-map-wrap {
+    background: var(--white);
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 12px;
+    margin-top: 10px;
+    overflow-x: auto;
+  }
+  .svg-map-wrap svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* ── DIAGRAM BOX ── */
+  .diagram-box {
+    background: var(--green-wash);
+    border: 2px dashed var(--green-light);
+    border-radius: var(--radius);
+    padding: 24px;
+    text-align: center;
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    color: var(--gray-400);
+    font-size: 13px;
+    cursor: default;
+    position: relative;
+  }
+  .diagram-box .draw-icon {
+    font-size: 36px;
+    opacity: 0.5;
+  }
+
+  /* ── BULLET INPUT LIST ── */
+  .bullet-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .bullet-list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .bullet-list li::before {
+    content: '●';
+    color: var(--green-light);
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+  .bullet-list input {
+    flex: 1;
+  }
+
+  /* ── TEACHER EXEMPLAR ── */
+  .exemplar {
+    background: var(--green-pale);
+    border-left: 4px solid var(--green-mid);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 14px;
+    font-size: 14px;
+    color: var(--green-deep);
+    margin-top: 6px;
+    line-height: 1.55;
+  }
+  .exemplar strong { font-weight: 600; }
+  .exemplar ul {
+    margin: 6px 0 0 18px;
+    list-style: disc;
+  }
+  .exemplar ul li { margin-bottom: 3px; }
+
+  .teacher-note {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #92400e;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .teacher-note .tn-icon { font-size: 18px; flex-shrink: 0; }
+
+  /* ── SECTION DIVIDER ── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 24px 0 16px;
+  }
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--gray-200);
+  }
+  .section-divider span {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray-400);
+  }
+
+  /* ── INTRO TEXT ── */
+  .intro-text {
+    font-size: 14px;
+    color: var(--gray-500);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  .intro-text strong {
+    color: var(--green-deep);
+    font-weight: 600;
+  }
+
+  /* ── PRINT ── */
+  .print-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--white);
+    border: 1.5px solid var(--gray-300);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-700);
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 20px;
+  }
+  .print-btn:hover {
+    border-color: var(--green-mid);
+    color: var(--green-deep);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* ── TAG / LABEL ── */
+  .tag {
+    display: inline-block;
+    background: var(--green-pale);
+    color: var(--green-deep);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 500px) {
+    .header h1 { font-size: 22px; }
+    .header h1 span { font-size: 26px; }
+    .tab-btn { font-size: 11px; padding: 12px 4px; }
+    .tab-btn .tab-icon { font-size: 16px; }
+    .card { padding: 16px; }
+  }
+
+  @media print {
+    .tab-bar, .print-btn { display: none; }
+    .tab-content { display: block !important; page-break-after: always; }
+    .header { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>Systems Thinking <span>Go Green ♻</span></h1>
+  <p>Understand the system. Find where change matters. Take action.</p>
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('activity')">
+    <span class="tab-icon">📋</span>Activity
+  </button>
+  <button class="tab-btn" onclick="switchTab('student')">
+    <span class="tab-icon">✏️</span>Student Template
+  </button>
+  <button class="tab-btn" onclick="switchTab('teacher')">
+    <span class="tab-icon">📖</span>Teacher Exemplar
+  </button>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TAB 1: ACTIVITY OVERVIEW                   -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="tab-activity" class="tab-content active">
+
+  <div style="margin-top: 8px; margin-bottom: 6px;">
+    <span class="tag">Activity Overview</span>
+  </div>
+
+  <p class="intro-text" style="margin-top: 12px;">
+    In this activity you'll use <strong>systems thinking</strong> to explore a real-world issue at your school — improving recycling. You'll map how the system works, find the best place to make change, and plan how <em>you</em> can make a difference.
+  </p>
+
+  <!-- STEP 1 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-badge">1</div>
+      <h3>Read the Scenario <small>Understand the problem</small></h3>
+    </div>
+    <p style="font-size:14px; color: var(--gray-700);">
+      Your school wants to reduce waste and increase recycling, but many recyclable items are still ending up in the trash. Why is this happening? It's not just one person's fault — it's a <strong>systems problem</strong> with many connected parts.
+    </p>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-badge">2</div>
+      <h3>Map the System <small>Identify parts & connections</small></h3>
+    </div>
+    <p style="font-size:14px; color: var(--gray-700); margin-bottom: 10px;">
+      List the <strong>key parts</strong> (people, things, organizations) and then show <strong>how they connect</strong>. Think about who makes decisions, who takes action, and where things can go wrong.
+    </p></div>
+
+  <!-- STEP 3 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-badge">3</div>
+      <h3>Find a Leverage Point <small>Where does change matter most?</small></h3>
+    </div>
+    <p style="font-size:14px; color: var(--gray-700);">
+      A <strong>leverage point</strong> is a place in the system where a small change can lead to big results. Look at your map — where are things breaking down? Where could a nudge create a ripple effect?
+    </p>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-badge">4</div>
+      <h3>Choose Your Role <small>How will you contribute?</small></h3>
+    </div>
+    <p style="font-size:14px; color: var(--gray-700);">
+      Pick a role you could realistically play in the system. Think about what you're good at and what you care about. Connect your <strong>strengths, values, and goals</strong> to the change you want to make.
+    </p>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-badge">5</div>
+      <h3>Write Your System Snapshot <small>Tell the story of the system</small></h3>
+    </div>
+    <p style="font-size:14px; color: var(--gray-700);">
+      Write a short narrative (4–6 sentences) that describes how the system works, where it breaks down, and how your role and actions would improve it.
+    </p>
+  </div>
+
+  <div style="text-align:center; margin-top: 20px; color: var(--gray-400); font-size: 13px;">
+    Ready? Head to the <strong>Student Template</strong> tab to begin ✏️
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TAB 2: STUDENT TEMPLATE                    -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="tab-student" class="tab-content">
+
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; margin-bottom:16px; flex-wrap: wrap; gap: 8px;">
+    <span class="tag">Student Worksheet</span>
+    <button class="print-btn" onclick="window.print()">🖨️ Print</button>
+  </div>
+
+  <p class="intro-text">
+    Use this template to work through each step. Write directly in the boxes below. Take your time and think carefully about how the parts of the system connect.
+  </p>
+
+  <!-- S1: Scenario -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-badge">1</div>
+      <h3>The Scenario <small>What's the problem?</small></h3>
+    </div>
+    <p style="font-size:14px; color: var(--gray-700); margin-bottom: 12px;">
+      Your school wants to reduce waste and increase recycling, but many recyclable items still end up in the trash.
+    </p>
+    <label class="field-label">In your own words, why do you think this problem exists?</label>
+    <div class="hint">Think beyond individual blame — what about the system makes this happen?</div>
+    <textarea placeholder="I think this problem exists because..."></textarea>
+  </div>
+
+  <!-- S2: Map the System -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-badge">2</div>
+      <h3>Map the System <small>Parts & connections</small></h3>
+    </div>
+
+    <label class="field-label">List the key parts of the recycling system at school</label>
+    <div class="hint">People, objects, organizations — who or what is involved?</div>
+    <ul class="bullet-list">
+      <li><input type="text" placeholder="e.g., Students"></li>
+      <li><input type="text" placeholder="e.g., Recycling bins"></li>
+      <li><input type="text" placeholder="e.g., Custodial staff"></li>
+      <li><input type="text" placeholder=""></li>
+      <li><input type="text" placeholder=""></li>
+      <li><input type="text" placeholder=""></li>
+    </ul>
+
+    <label class="field-label" style="margin-top:18px;">How do these parts connect? Describe at least 3 connections.</label>
+    <div class="hint">Who influences whom? What depends on what?</div>
+    <textarea class="tall" placeholder="1. Students decide whether to use the trash or recycling bin...&#10;2. &#10;3. "></textarea>
+
+    <label class="field-label" style="margin-top:18px;">Draw or describe your system map</label>
+    <div class="hint">Use arrows to show how parts connect. You can draw on paper and paste a photo, or describe it below.</div>
+    <div class="diagram-box">
+      <span class="draw-icon">✏️</span>
+      Draw your system map here on paper,<br>or describe it in the box below.
+    </div>
+    <textarea style="margin-top:10px;" placeholder="Describe your system map here if you prefer writing to drawing..."></textarea>
+  </div>
+
+  <!-- S3: Leverage Point -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-badge">3</div>
+      <h3>Find a Leverage Point <small>Where can change happen?</small></h3>
+    </div>
+
+    <label class="field-label">What leverage point did you identify?</label>
+    <div class="hint">Where in the system would a small change make the biggest difference?</div>
+    <input type="text" placeholder="e.g., Student awareness and convenience">
+
+    <label class="field-label">Why is this a good leverage point? (Give 2–3 reasons)</label>
+    <textarea placeholder="This is a good leverage point because..."></textarea>
+  </div>
+
+  <!-- S4: Your Role -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-badge">4</div>
+      <h3>Choose Your Role <small>Strengths, values & actions</small></h3>
+    </div>
+
+    <label class="field-label">What role would you play in the system?</label>
+    <input type="text" placeholder="e.g., Green Team Leader">
+
+    <label class="field-label">What are your strengths?</label>
+    <div class="hint">What are you good at that would help?</div>
+    <ul class="bullet-list">
+      <li><input type="text" placeholder="e.g., Organized"></li>
+      <li><input type="text" placeholder="e.g., Good at public speaking"></li>
+      <li><input type="text" placeholder=""></li>
+    </ul>
+
+    <label class="field-label">What are your values?</label>
+    <div class="hint">What do you care about that connects to this issue?</div>
+    <ul class="bullet-list">
+      <li><input type="text" placeholder="e.g., Environmental responsibility"></li>
+      <li><input type="text" placeholder="e.g., Community impact"></li>
+      <li><input type="text" placeholder=""></li>
+    </ul>
+
+    <label class="field-label">What specific actions would you take? (List 2–4)</label>
+    <textarea class="tall" placeholder="1. &#10;2. &#10;3. &#10;4. "></textarea>
+  </div>
+
+  <!-- S5: System Snapshot -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-badge">5</div>
+      <h3>System Snapshot <small>Your narrative (4–6 sentences)</small></h3>
+    </div>
+
+    <label class="field-label">Describe how the system works, where it breaks down, and how you would improve it.</label>
+    <div class="hint">Connect your map, leverage point, and role into a short story of change.</div>
+    <textarea class="tall" style="min-height:160px;" placeholder="Recycling at school depends on... The system breaks down when... As a [your role], I would..."></textarea>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════ -->
+<!-- TAB 3: TEACHER EXEMPLAR                    -->
+<!-- ═══════════════════════════════════════════ -->
+<div id="tab-teacher" class="tab-content">
+
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; margin-bottom:16px; flex-wrap: wrap; gap: 8px;">
+    <span class="tag">Teacher Version — Completed Exemplar</span>
+    <button class="print-btn" onclick="window.print()">🖨️ Print</button>
+  </div>
+
+  <div class="teacher-note">
+    <span class="tn-icon">💡</span>
+    <div>
+      <strong>Teacher Guidance:</strong> This completed exemplar shows what a strong student response looks like. Use it to model expectations, provide feedback, or scaffold struggling learners. Green boxes show sample answers.
+    </div>
+  </div>
+
+  <!-- T1: Scenario -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-badge">1</div>
+      <h3>The Scenario <small>What's the problem?</small></h3>
+    </div>
+    <p style="font-size:14px; color: var(--gray-700); margin-bottom: 10px;">
+      The school wants to reduce waste and increase recycling, but many recyclable items are still being thrown in the trash.
+    </p>
+    <label class="field-label">In your own words, why do you think this problem exists?</label>
+    <div class="exemplar">
+      I think this problem exists because the recycling system at school has multiple weak points — not just lazy students. The bins might be hard to find, the labels might be confusing, and most students have never been taught what can actually be recycled. It's a system issue, not just a people issue.
+    </div>
+  </div>
+
+  <!-- T2: Map the System -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-badge">2</div>
+      <h3>Map the System <small>Parts & connections</small></h3>
+    </div>
+
+    <label class="field-label">Key parts of the recycling system</label>
+    <div class="exemplar">
+      <ul>
+        <li>Students</li>
+        <li>Teachers</li>
+        <li>Custodial staff</li>
+        <li>Recycling bins & trash bins</li>
+        <li>School administration</li>
+        <li>Local recycling center</li>
+      </ul>
+    </div>
+
+    <label class="field-label" style="margin-top:16px;">How they connect (3+ connections)</label>
+    <div class="exemplar">
+      <strong>1.</strong> Students decide whether to throw items in the trash or recycling — they are the main "choice point" in the system.<br>
+      <strong>2.</strong> Teachers influence student behavior by modeling recycling in classrooms and reinforcing expectations.<br>
+      <strong>3.</strong> Administration decides where bins are placed and what signage is used — this shapes whether recycling is easy or hard.<br>
+      <strong>4.</strong> Custodial staff collects and sorts waste — if recycling is contaminated, it may all go to trash anyway.<br>
+      <strong>5.</strong> The local recycling center processes materials only if they arrive clean and sorted.
+    </div>
+
+    <label class="field-label" style="margin-top:16px;">System map</label>
+    <div class="svg-map-wrap">
+      <svg viewBox="0 0 1000 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0,0 10,3.5 0,7" fill="#2d8a56"/>
+    </marker>
+    <marker id="arrow-gray" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0,0 10,3.5 0,7" fill="#9ca3af"/>
+    </marker>
+  </defs>
+  <!-- Background -->
+  <rect
+     width="1000"
+     height="600"
+     fill="#f4faf7"
+     rx="12" />
+  <!-- Title -->
+  <text
+     x="500"
+     y="44"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="20"
+     font-weight="700"
+     fill="#1a5c38">System Snapshot: School Recycling</text>
+  <!-- ── Administration ── -->
+  <rect
+     x="370"
+     y="72"
+     width="260"
+     height="60"
+     rx="12"
+     fill="#ffffff"
+     stroke="#2d8a56"
+     stroke-width="2" />
+  <text
+     x="500"
+     y="100"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="15"
+     font-weight="700"
+     fill="#1a5c38">Administration</text>
+  <text
+     x="500"
+     y="120"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="12"
+     fill="#6b7280">sets expectations &amp; policy</text>
+  <!-- Arrow: Admin → Bins -->
+  <path
+     d="M500 132 L500 168"
+     stroke="#2d8a56"
+     stroke-width="2.5"
+     fill="none"
+     marker-end="url(#arrow-green)" />
+  <text
+     x="512.10608"
+     y="156.17879"
+     font-family="Outfit, Arial, sans-serif"
+     font-size="11px"
+     fill="#6b7280">decides</text>
+  <!-- ── Bins + Signage ── -->
+  <rect
+     x="370"
+     y="172"
+     width="260"
+     height="60"
+     rx="12"
+     fill="#ffffff"
+     stroke="#2d8a56"
+     stroke-width="2" />
+  <text
+     x="500"
+     y="200"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="15"
+     font-weight="700"
+     fill="#1a5c38">Bins + Signage</text>
+  <text
+     x="500"
+     y="220"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="12"
+     fill="#6b7280">placement &amp; clarity</text>
+  <!-- Arrow: Bins → Students -->
+  <path
+     d="M500 232 L500 272"
+     stroke="#2d8a56"
+     stroke-width="2.5"
+     fill="none"
+     marker-end="url(#arrow-green)" />
+  <text
+     x="509.74854"
+     y="259.76816"
+     font-family="Outfit, Arial, sans-serif"
+     font-size="11px"
+     fill="#6b7280">shapes</text>
+  <!-- ── Students (CHOICE POINT) ── -->
+  <rect
+     x="340"
+     y="276"
+     width="320"
+     height="76"
+     rx="14"
+     fill="#e8f5ee"
+     stroke="#2d8a56"
+     stroke-width="2.5" />
+  <text
+     x="500"
+     y="305"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="16"
+     font-weight="700"
+     fill="#1a5c38">Students</text>
+  <text
+     x="500"
+     y="326"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="13"
+     font-weight="600"
+     fill="#2d8a56">⬥ CHOICE POINT ⬥</text>
+  <text
+     x="500"
+     y="344"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="11"
+     fill="#6b7280">Where does the item go?</text>
+  <!-- Arrow: Students → Trash -->
+  <path
+     d="M380 352 L200 420"
+     stroke="#9ca3af"
+     stroke-width="2"
+     fill="none"
+     marker-end="url(#arrow-gray)" />
+  <text
+     x="262.64243"
+     y="374.46365"
+     font-family="Outfit, Arial, sans-serif"
+     font-size="11px"
+     fill="#9ca3af">if unclear</text>
+  <!-- Arrow: Students → Recycling -->
+  <path
+     d="M620 352 L800 420"
+     stroke="#2d8a56"
+     stroke-width="2"
+     fill="none"
+     marker-end="url(#arrow-green)" />
+  <text
+     x="710.56976"
+     y="381.53635"
+     font-family="Outfit, Arial, sans-serif"
+     font-size="11px"
+     fill="#2d8a56">if clear</text>
+  <!-- ── Trash ── -->
+  <rect
+     x="100"
+     y="424"
+     width="200"
+     height="56"
+     rx="12"
+     fill="#ffffff"
+     stroke="#9ca3af"
+     stroke-width="1.5" />
+  <text
+     x="200"
+     y="449"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="14"
+     font-weight="600"
+     fill="#6b7280">🗑 Trash</text>
+  <text
+     x="200"
+     y="468"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="11"
+     fill="#9ca3af">landfill / waste</text>
+  <!-- ── Recycling ── -->
+  <rect
+     x="700"
+     y="424"
+     width="200"
+     height="56"
+     rx="12"
+     fill="#ffffff"
+     stroke="#2d8a56"
+     stroke-width="2" />
+  <text
+     x="800"
+     y="449"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="14"
+     font-weight="600"
+     fill="#1a5c38">♻ Recycling</text>
+  <text
+     x="800"
+     y="468"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="11"
+     fill="#2d8a56">materials recovered</text>
+  <!-- ── Teachers (side influence) ── -->
+  <rect
+     x="50"
+     y="280"
+     width="200"
+     height="52"
+     rx="12"
+     fill="#ffffff"
+     stroke="#4aba7a"
+     stroke-width="1.5"
+     stroke-dasharray="6 4" />
+  <text
+     x="150"
+     y="305"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="13"
+     font-weight="600"
+     fill="#1a5c38">Teachers</text>
+  <text
+     x="150"
+     y="322"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="11"
+     fill="#6b7280">model &amp; reinforce</text>
+  <path
+     d="M250 306 L340 306"
+     stroke="#4aba7a"
+     stroke-width="1.5"
+     stroke-dasharray="6 4"
+     fill="none"
+     marker-end="url(#arrow-green)" />
+  <!-- ── YOUR ROLE ── -->
+  <rect
+     x="58"
+     y="150"
+     width="226"
+     height="100"
+     rx="14"
+     fill="#fff7e6"
+     stroke="#e6a817"
+     stroke-width="2" />
+  <text
+     x="171"
+     y="178"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="13"
+     font-weight="700"
+     fill="#92400e">⭐ YOUR ROLE</text>
+  <text
+     x="171"
+     y="198"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="14"
+     font-weight="600"
+     fill="#1a5c38">Green Team Leader</text>
+  <text
+     x="171"
+     y="218"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="11"
+     fill="#6b7280">makes recycling easy + clear</text>
+  <text
+     x="171"
+     y="236"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="11"
+     fill="#6b7280">posters · bins · class challenge</text>
+  <!-- Arrow: Role → Choice Point -->
+  <path
+     d="M284 220 L340 296"
+     stroke="#e6a817"
+     stroke-width="2"
+     fill="none"
+     marker-end="url(#arrow-green)" />
+  <text
+     x="312.73477"
+     y="252"
+     font-family="Outfit, Arial, sans-serif"
+     font-size="10px"
+     font-weight="500"
+     fill="#92400e">improves</text>
+  <!-- ── Custodial Staff ── -->
+  <rect
+     x="750"
+     y="500"
+     width="160"
+     height="46"
+     rx="10"
+     fill="#ffffff"
+     stroke="#d1d5db"
+     stroke-width="1.5" />
+  <text
+     x="830"
+     y="522"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="12"
+     font-weight="600"
+     fill="#6b7280">Custodial Staff</text>
+  <text
+     x="830"
+     y="538"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="10"
+     fill="#9ca3af">collects &amp; sorts</text>
+  <path
+     d="M800 480 L820 500"
+     stroke="#d1d5db"
+     stroke-width="1.5"
+     fill="none"
+     marker-end="url(#arrow-gray)" />
+  <!-- ── Outcome ── -->
+  <rect
+     x="370"
+     y="510"
+     width="260"
+     height="54"
+     rx="12"
+     fill="#e8f5ee"
+     stroke="#4aba7a"
+     stroke-width="1.5" />
+  <text
+     x="500"
+     y="534"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="13"
+     font-weight="600"
+     fill="#1a5c38">🌱 Outcome</text>
+  <text
+     x="500"
+     y="552"
+     text-anchor="middle"
+     font-family="Outfit,Arial,sans-serif"
+     font-size="11"
+     fill="#2d8a56">less waste · higher recycling rate</text>
+  <!-- Dashed arrows to Outcome -->
+  <path
+     d="M200 480 L420 510"
+     stroke="#9ca3af"
+     stroke-width="1.5"
+     stroke-dasharray="5 4"
+     fill="none"
+     marker-end="url(#arrow-gray)" />
+  <path
+     d="M770 480 L580 510"
+     stroke="#2d8a56"
+     stroke-width="1.5"
+     stroke-dasharray="5 4"
+     fill="none"
+     marker-end="url(#arrow-green)" />
+
+</svg>
+    </div>
+  </div>
+
+  <!-- T3: Leverage Point -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-badge">3</div>
+      <h3>Find a Leverage Point <small>Where can change happen?</small></h3>
+    </div>
+
+    <label class="field-label">Leverage point identified</label>
+    <div class="exemplar">
+      <strong>Student awareness and convenience</strong>
+    </div>
+
+    <label class="field-label" style="margin-top:14px;">Why this is a good leverage point</label>
+    <div class="exemplar">
+      <ul>
+        <li>Many students don't know what can be recycled — fixing this changes daily decisions.</li>
+        <li>If bins aren't nearby or clearly labeled, even motivated students won't recycle — convenience is key.</li>
+        <li>Students are the biggest group of users in the system, so changing their behavior has the largest impact.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- T4: Role -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-badge">4</div>
+      <h3>Choose Your Role <small>Strengths, values & actions</small></h3>
+    </div>
+
+    <label class="field-label">Role</label>
+    <div class="exemplar"><strong>Green Team Leader</strong> (Student Environmental Ambassador)</div>
+
+    <label class="field-label" style="margin-top:14px;">Strengths</label>
+    <div class="exemplar">
+      <ul>
+        <li>Organized — can plan events and coordinate with staff</li>
+        <li>Comfortable speaking in front of groups — can present in homeroom</li>
+        <li>Creative — can design posters and social media campaigns</li>
+      </ul>
+    </div>
+
+    <label class="field-label" style="margin-top:14px;">Values</label>
+    <div class="exemplar">
+      <ul>
+        <li>Environmental responsibility</li>
+        <li>Sustainability</li>
+        <li>Community impact</li>
+      </ul>
+    </div>
+
+    <label class="field-label" style="margin-top:14px;">Specific actions</label>
+    <div class="exemplar">
+      <strong>1.</strong> Create simple posters showing what goes in recycling vs. trash bins.<br>
+      <strong>2.</strong> Work with administration to place a recycling bin next to every trash can.<br>
+      <strong>3.</strong> Give a short presentation in homeroom about why recycling matters.<br>
+      <strong>4.</strong> Start a friendly competition between classes to see who recycles the most.
+    </div>
+  </div>
+
+  <!-- T5: System Snapshot -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-badge">5</div>
+      <h3>System Snapshot <small>Narrative (4–6 sentences)</small></h3>
+    </div>
+
+    <label class="field-label">Completed narrative</label>
+    <div class="exemplar">
+      Recycling at school depends on how administration sets up the system (bin placement and signage), how teachers reinforce expectations, and how students choose to act. Even if recycling bins exist, the system fails if students are confused or unmotivated. As a Green Team Leader, I would improve the "student awareness and convenience" part of the system. By making recycling easier and clearer — through posters, better bin placement, homeroom presentations, and class competitions — I would help shift daily habits. Over time, better habits would reduce waste, increase recycling rates, and support a more sustainable school environment.
+    </div>
+  </div>
+
+  <div class="section-divider"><span>Rubric Tips</span></div>
+
+  <div class="card" style="border-left: 4px solid var(--earth);">
+    <div class="card-header">
+      <h3 style="color: var(--earth);">🎯 What to Look For in Student Responses</h3>
+    </div>
+    <p style="font-size:14px; color: var(--gray-700); line-height: 1.7;">
+      <strong>Strong responses</strong> identify at least 4–5 system parts and explain how they connect. The leverage point is specific and justified with reasoning. The student's role connects their personal strengths and values to a concrete plan of action. The snapshot weaves everything together into a coherent narrative.
+    </p>
+    <p style="font-size:14px; color: var(--gray-700); line-height: 1.7; margin-top: 10px;">
+      <strong>Growing responses</strong> may list parts without explaining connections, choose a vague leverage point, or describe actions without linking them to the system. Use prompts like: <em>"How does your action change what happens in the system?"</em> or <em>"Who else is affected when you make this change?"</em>
+    </p>
+  </div>
+
+</div>
+
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  const tabs = ['activity', 'student', 'teacher'];
+  const idx = tabs.indexOf(tab);
+  document.querySelectorAll('.tab-btn')[idx].classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
